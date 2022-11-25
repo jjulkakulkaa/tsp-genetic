@@ -1,20 +1,20 @@
 import random
-def random_points(how_many_points):
+def random_points(amount_of_points):
     points = []
-    while(len(points)<=how_many_points):
+    while(len(points)<=amount_of_points):
         point = [random.randint(0,2000),random.randint(0,2000)]
         if point not in points:
             points.append(point)
     return points
 
-def gen_points_in_file(how_many_files, how_many_points):
-    for x in range(how_many_files):
+def gen_points_in_file(number_of_files, number_of_points):
+    for x in range(number_of_files):
         file_name = "data"+str(x)+".txt"
-        points = random_points(how_many_points)
+        points = random_points(number_of_points)
         data = open(file_name, mode = 'w')
         point_index = 1
 
-        data.write(str(how_many_points)+'\n')
+        data.write(str(number_of_points)+'\n')
         for point in points:
             strpoint = (' '.join( str(a) for a in point))
             data.write(str(point_index)+' ')
