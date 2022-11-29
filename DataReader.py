@@ -10,4 +10,5 @@ def GetData(file_name):
     return number_of_points, data
 
 dupa = GetData("data0.txt")
-print(dupa)
+example_list_of_points = list(dupa[1].keys())
+example_data = dupa[1]

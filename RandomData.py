@@ -1,7 +1,7 @@
 import random
 def random_points(amount_of_points):
     points = []
-    while(len(points)<=amount_of_points):
+    while(len(points)<amount_of_points):
         point = [random.randint(0,2000),random.randint(0,2000)]
         if point not in points:
             points.append(point)
@@ -23,5 +23,5 @@ def gen_points_in_file(number_of_files, number_of_points):
             point_index +=1
         data.close()
 
-#gen_points_in_file(1,100)
+gen_points_in_file(1,10)
 
