@@ -23,5 +23,4 @@ def gen_points_in_file(number_of_files, number_of_points):
             point_index +=1
         data.close()
 
-gen_points_in_file(1,10)
 

@@ -9,6 +9,7 @@ def GetData(file_name):
         data[int(l[0])] = list(map(int,l[1:]))
     return number_of_points, data
 
-dupa = GetData("data0.txt")
-example_list_of_points = list(dupa[1].keys())
-example_data = dupa[1]
+text = GetData("data0.txt")
+number_of_points = text[0]
+list_of_points = list(text[1].keys())
+data = text[1]
