@@ -9,7 +9,7 @@ def GetData(file_name):
         data[int(l[0])] = list(map(int,l[1:]))
     return number_of_points, data
 
-text = GetData("data0.txt")
+text = GetData("tsp1000.txt")
 number_of_points = text[0]
 list_of_points = list(text[1].keys())
 data = text[1]
