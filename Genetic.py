@@ -95,12 +95,11 @@ def newPopulation(number_of_points,data, best_solutions, tournament_winners, pop
         else:
             new_population.append(chromosome)
     chromosomes_to_add = population_size - len(new_population)
-    random_population_to_add = randomPopulation(list_of_points, chromosomes_to_add)
-    result = new_population + random_population_to_add
-    return result
-    # result = []
-    # for x in sorted_new_population:
-    #     result.append(x[0])
+    if chromosomes_to_add > 0:
+        random_population_to_add = randomPopulation(list_of_points, chromosomes_to_add)
+        result = new_population + random_population_to_add
+    else:
+        result = new_population[0:population_size-1]
     return result
 
-# wstepna populacja bedzie paroma wynikami algorytmu zachlanmnego
+# to do: do wstepnej populacji dodawac wynik alg zachlannego

@@ -4,17 +4,17 @@ from SolvingProblem import solvingProblem
 from Genetic import randomPopulation, calculatedFitness, crossOver, mutatedChromosome, newPopulation, setOfTournaments, tournamentsWinners
 import time
 
-filename = "berlin52.txt"
+filename = "bier127.txt"
 
 read_file = GetData(filename)
 number_of_points = read_file[0]
 list_of_points = list(read_file[1].keys())
 data = read_file[1]
 
-size_of_population = 200
+size_of_population = 1000
+time_limit = 180
 
 first_population = randomPopulation(list_of_points,size_of_population)
-time0 = time.time()
-result = solvingProblem(number_of_points,data,first_population,size_of_population,size_of_population//10,0,list_of_points)
-print(result, time.time()- time0)
+result = solvingProblem(number_of_points,data,first_population,size_of_population,size_of_population//100,time_limit,list_of_points,time.time())
+print(result)
 
