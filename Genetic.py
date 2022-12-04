@@ -37,27 +37,30 @@ def setOfTournaments(population, population_size):
     populationcopy = deepcopy(population)
     #tworzenie turniejow
     tournaments = []
-    while len(tournaments) < population_size:
-        tournament_size = randint(1, len(populationcopy) - 1)
+    tournament_size = population_size//100
+    while len(populationcopy) > tournament_size:
         tournament = []
         for x in range(tournament_size):
             rndIndex = randint(0, (len(populationcopy) - 1))
             tournament.append(populationcopy[rndIndex])
+            del(populationcopy[rndIndex])
         tournaments.append(tournament)
+    tournaments.append(populationcopy)
     return tournaments
+
 
 def tournamentsWinners(data ,number_of_points, set_of_tournaments):
     winners = []
     for tournament in set_of_tournaments:
-        scores = {}
+        scores = []
         player_id = 0
         for player in tournament:
-            scores[player_id]= calculatedFitness(number_of_points,player, data)
+            scores.append([player, calculatedFitness(number_of_points, player, data)])
             player_id += 1
             #{(indeks gracza w turnieju, wynik funkcji fitness )}
-        sorted_scores = sorted(scores.items(), key=lambda x:x[1])
-        winner = sorted_scores[0] #winner[0] to player_id wygranego winner[1] to wartosc fitnessu
-        winners.append(tournament[winner[0]])
+        sorted_scores = sorted(scores, key=lambda x:x[1])
+        winner = sorted_scores[0]
+        winners.append(winner[0])
         #dodanie zwyciezcy( listy z odwiedzonymi punktami np.[1,3,4,5,2]) ktora wygrala turniej czyli miala najmniejszy fitness
     return winners   
 
@@ -69,30 +72,35 @@ def crossOver(number_of_points, parent1, parent2):
             child.append(point)
     return child
 
-def newPopulation(number_of_points,data, best_solutions, tournament_winners):
+def newPopulation(number_of_points,data, best_solutions, tournament_winners, population_size, list_of_points):
     new_population = []
     for solution in best_solutions:
         mutated_sol = mutatedChromosome(number_of_points, solution)
-        mutated_sol_fitness = calculatedFitness(number_of_points, mutated_sol,data)
-        non_mutaded_fitness = calculatedFitness(number_of_points, solution,data)
+        mutated_sol_fitness = calculatedFitness(number_of_points, mutated_sol, data)
+        non_mutaded_fitness = calculatedFitness(number_of_points, solution, data)
         if(mutated_sol_fitness < non_mutaded_fitness):
-            new_population.append([mutated_sol,mutated_sol_fitness])
+            new_population.append(mutated_sol)
         else:
-            new_population.append([solution,non_mutaded_fitness])
+            new_population.append(solution)
     partly_new_population = []
     for winner in tournament_winners: # mozna potem dawac krok zeby nie krzyzowac wszystkich zwyciezcow tylko czesc np co drugi zwyciezca
+        partly_new_population.append(winner)
         crossed_winner = crossOver(number_of_points,winner,tournament_winners[randint(0,len(tournament_winners)-1)])
-        partly_new_population.append(crossed_winner) # dodajemy zkrossowanego winnera z jakims randomowym z winnerow tez
+        partly_new_population.append(crossed_winner)
+        # partly_new_population.append(crossed_winner) # dodajemy zkrossowanego winnera z jakims randomowym z winnerow tez
     for chromosome in partly_new_population:
-        if (1==1): # z prawdopodobienstwem 100 % zmutuje i doda do populacji
+        if (randint(0,9)>0): # z prawdopodobienstwem 90 % zmutuje i doda do populacji
             mutated_chromosome = mutatedChromosome(number_of_points,chromosome)
-            new_population.append([mutated_chromosome, calculatedFitness(number_of_points,mutated_chromosome,data)])
+            new_population.append(mutated_chromosome)
         else:
-            new_population.append([chromosome, calculatedFitness(number_of_points,chromosome,data)])
-    sorted_new_population = sorted(new_population, key=lambda x:x[1])
-    result = []
-    for x in sorted_new_population:
-        result.append(x[0])
+            new_population.append(chromosome)
+    chromosomes_to_add = population_size - len(new_population)
+    random_population_to_add = randomPopulation(list_of_points, chromosomes_to_add)
+    result = new_population + random_population_to_add
+    return result
+    # result = []
+    # for x in sorted_new_population:
+    #     result.append(x[0])
     return result
 
 # wstepna populacja bedzie paroma wynikami algorytmu zachlanmnego
