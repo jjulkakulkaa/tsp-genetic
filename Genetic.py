@@ -37,7 +37,7 @@ def setOfTournaments(population, population_size):
     populationcopy = deepcopy(population)
     #tworzenie turniejow
     tournaments = []
-    tournament_size = population_size//100
+    tournament_size = population_size//1000
     while len(populationcopy) > tournament_size:
         tournament = []
         for x in range(tournament_size):
@@ -82,6 +82,7 @@ def newPopulation(number_of_points,data, best_solutions, tournament_winners, pop
             new_population.append(mutated_sol)
         else:
             new_population.append(solution)
+        new_population.append(mutated_sol)
     partly_new_population = []
     for winner in tournament_winners: # mozna potem dawac krok zeby nie krzyzowac wszystkich zwyciezcow tylko czesc np co drugi zwyciezca
         partly_new_population.append(winner)
@@ -89,7 +90,7 @@ def newPopulation(number_of_points,data, best_solutions, tournament_winners, pop
         partly_new_population.append(crossed_winner)
         # partly_new_population.append(crossed_winner) # dodajemy zkrossowanego winnera z jakims randomowym z winnerow tez
     for chromosome in partly_new_population:
-        if (randint(0,9)>0): # z prawdopodobienstwem 90 % zmutuje i doda do populacji
+        if (randint(0,9)>4): # z prawdopodobienstwem 90 % zmutuje i doda do populacji
             mutated_chromosome = mutatedChromosome(number_of_points,chromosome)
             new_population.append(mutated_chromosome)
         else:
