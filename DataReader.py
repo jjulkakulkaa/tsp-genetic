@@ -10,7 +10,7 @@ def GetData(file_name):
     return number_of_points, data
 
 
-text = GetData("tsp1000.txt")
-number_of_points = text[0]
-list_of_points = list(text[1].keys())
-data = text[1]
+# text = GetData("tsp1000.txt")
+# number_of_points = text[0]
+# list_of_points = list(text[1].keys())
+# data = text[1]
