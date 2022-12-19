@@ -4,15 +4,16 @@ from Genetic import randomPopulation, calculatedFitness, crossOver, mutatedChrom
 import time
 import TSPGreedy
 
-filename = "berlin52.txt"
+filename = "tsp250.txt"
 
 read_file = GetData(filename)
 number_of_points = read_file[0]
 list_of_points = list(read_file[1].keys())
 data = read_file[1]
 
-size_of_population = 2000
-time_limit = 20
+size_of_population = 10000
+time_limit = 180
+
 
 
 greedy_results = TSPGreedy.GreedyResults(number_of_points,data, [],list_of_points)

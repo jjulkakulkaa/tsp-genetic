@@ -1,7 +1,6 @@
 import math
 from decimal import Decimal
 from numpy import Infinity, size 
-# from DataReader import GetData
 from copy import deepcopy
  
 def TSP_greedy(data,choice,start_point,list_of_available_vertices):
@@ -26,3 +25,4 @@ def GreedyResults(number_of_points, data,finall_list,list_of_points):
         finall_list.append(part_of_sol)
     return finall_list
 
+# add distance
